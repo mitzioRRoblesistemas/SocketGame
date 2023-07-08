@@ -42,7 +42,7 @@ gameServer.on('connection', async socket => {
         quaternion: { x: 0, y: 0, z: 0, w: 0 },
         animation: "idle",
         name: "",
-        avatarSkin: "personaje.fbx",
+        avatarSkin: "",
     };
 
     jugadoresConectados.set(socket.id, socket);
@@ -59,10 +59,11 @@ gameServer.on('connection', async socket => {
     });
 
     // falta implementar
-    // socket.on("setAvatar", (avatarSkin) => {
-    //     console.log("setting avatar " + avatarSkin);
-    //     gameServer.emit("setAvatarSkin", avatarSkin, socket.id);
-    // });
+    socket.on("setAvatar", (avatarSkin) => {
+         console.log("setting avatar " + avatarSkin);
+         socket.userData.avatarSkin
+         gameServer.emit("setAvatarSkin", avatarSkin, socket.id);
+    });
 
     socket.on("disconnect", () => {
         console.log(`Jugador ${socket.id} desconectado`);
